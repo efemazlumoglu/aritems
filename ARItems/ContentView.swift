@@ -30,6 +30,7 @@ struct ContentView : View {
         ZStack(alignment: .bottom) {
             ARViewContainer()
             ModelPickerView(models: self.models)
+            PlacementButtonView()
         }
     }
 }
@@ -68,6 +69,25 @@ struct ModelPickerView: View {
         }
         .padding(20)
         .background(Color.black).opacity(0.5)
+    }
+}
+
+struct PlacementButtonView: View {
+    var body: some View {
+        HStack {
+            // Cancel button
+            Button(action: {
+                print("DEBUG: Cancel model placement.")
+            }) {
+                Image(systemName: "xmark").frame(width: 60, height: 60).font(.title).background(Color.white).opacity(0.75).cornerRadius(30).padding(20)
+            }
+            // Confirm Button
+            Button(action: {
+                print("DEBUG: Confirm model placement.")
+            }) {
+                Image(systemName: "checkmark").frame(width: 60, height: 60).font(.title).background(Color.white).opacity(0.75).cornerRadius(30).padding(20)
+            }
+        }
     }
 }
 
