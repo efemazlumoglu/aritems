@@ -15,6 +15,8 @@
 		F33833F427CFE3CC000810E2 /* ARItemsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33833F327CFE3CC000810E2 /* ARItemsTests.swift */; };
 		F33833FE27CFE3CC000810E2 /* ARItemsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33833FD27CFE3CC000810E2 /* ARItemsUITests.swift */; };
 		F338340027CFE3CC000810E2 /* ARItemsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33833FF27CFE3CC000810E2 /* ARItemsUITestsLaunchTests.swift */; };
+		F338340F27CFFB0D000810E2 /* PegasusTrail.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F338340D27CFFB0D000810E2 /* PegasusTrail.usdz */; };
+		F338341027CFFB0D000810E2 /* AirForce.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F338340E27CFFB0D000810E2 /* AirForce.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		F33833F927CFE3CC000810E2 /* ARItemsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARItemsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33833FD27CFE3CC000810E2 /* ARItemsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARItemsUITests.swift; sourceTree = "<group>"; };
 		F33833FF27CFE3CC000810E2 /* ARItemsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARItemsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F338340D27CFFB0D000810E2 /* PegasusTrail.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = PegasusTrail.usdz; sourceTree = "<group>"; };
+		F338340E27CFFB0D000810E2 /* AirForce.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = AirForce.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 			children = (
 				F33833E027CFE3CB000810E2 /* AppDelegate.swift */,
 				F33833E227CFE3CB000810E2 /* ContentView.swift */,
+				F338340C27CFFAEE000810E2 /* Models */,
 				F33833E427CFE3CB000810E2 /* Experience.rcproject */,
 				F33833E627CFE3CC000810E2 /* Assets.xcassets */,
 				F33833E827CFE3CC000810E2 /* Preview Content */,
@@ -128,6 +133,15 @@
 				F33833FF27CFE3CC000810E2 /* ARItemsUITestsLaunchTests.swift */,
 			);
 			path = ARItemsUITests;
+			sourceTree = "<group>";
+		};
+		F338340C27CFFAEE000810E2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F338340E27CFFB0D000810E2 /* AirForce.usdz */,
+				F338340D27CFFB0D000810E2 /* PegasusTrail.usdz */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,7 +248,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F338341027CFFB0D000810E2 /* AirForce.usdz in Resources */,
 				F33833EA27CFE3CC000810E2 /* Preview Assets.xcassets in Resources */,
+				F338340F27CFFB0D000810E2 /* PegasusTrail.usdz in Resources */,
 				F33833E727CFE3CC000810E2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
