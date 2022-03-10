@@ -36,16 +36,13 @@ struct ContentView : View {
     var body: some View {
         
         ZStack(alignment: .bottom) {
-            
             ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
             if self.isPlacementEnabled {
                 PlacementButtonView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
             } else {
                 ModelPickerView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, models: self.models)
             }
-            
         }
-        
     }
 }
 
@@ -77,7 +74,7 @@ struct ARViewContainer: UIViewRepresentable {
             
             let filename = modelName + ".usdz"
             let modelEntity = try! ModelEntity.loadModel(named: filename)
-            let anchorEntity = AnchorEntity(plane: .any)
+            let anchorEntity = AnchorEntity()
             anchorEntity.addChild(modelEntity)
             
             uiView.scene.addAnchor(anchorEntity)
@@ -97,24 +94,28 @@ struct ModelPickerView: View {
     
     var models: [String]
     
+    func modelPickerViewButton() -> some View {
+        HStack(spacing: 30) {
+            ForEach(0 ..< self.models.count) {
+                index in
+                Button(action: {
+                    print("DEBUG: selected model with the name: \(self.models[index])")
+                    self.selectedModel = self.models[index]
+                    self.isPlacementEnabled = true
+                }) {
+                    Image(uiImage: UIImage(named: self.models[index])!).resizable().frame(height: 80).aspectRatio(1/1, contentMode: .fit)
+                        .background(Color.white)
+                        .cornerRadius(12)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+        }
+    }
+    
     var body: some View {
         
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 30) {
-                ForEach(0 ..< self.models.count) {
-                    index in
-                    Button(action: {
-                        print("DEBUG: selected model with the name: \(self.models[index])")
-                        self.selectedModel = self.models[index]
-                        self.isPlacementEnabled = true
-                    }) {
-                        Image(uiImage: UIImage(named: self.models[index])!).resizable().frame(height: 80).aspectRatio(1/1, contentMode: .fit)
-                            .background(Color.white)
-                            .cornerRadius(12)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-            }
+            modelPickerViewButton()
         }
         .padding(20)
         .background(Color.black).opacity(0.5)
