@@ -19,6 +19,7 @@
 		F338341027CFFB0D000810E2 /* AirForce.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F338340E27CFFB0D000810E2 /* AirForce.usdz */; };
 		F3EAA50627DFDF0D00551433 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EAA50527DFDF0D00551433 /* Model.swift */; };
 		F3EAA50927DFDFAA00551433 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = F3EAA50827DFDFAA00551433 /* FocusEntity */; };
+		F3EAA50B27DFE64800551433 /* retroTv.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F3EAA50A27DFE64800551433 /* retroTv.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		F338340D27CFFB0D000810E2 /* PegasusTrail.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = PegasusTrail.usdz; sourceTree = "<group>"; };
 		F338340E27CFFB0D000810E2 /* AirForce.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = AirForce.usdz; sourceTree = "<group>"; };
 		F3EAA50527DFDF0D00551433 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		F3EAA50A27DFE64800551433 /* retroTv.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = retroTv.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 			children = (
 				F338340E27CFFB0D000810E2 /* AirForce.usdz */,
 				F338340D27CFFB0D000810E2 /* PegasusTrail.usdz */,
+				F3EAA50A27DFE64800551433 /* retroTv.usdz */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				F338341027CFFB0D000810E2 /* AirForce.usdz in Resources */,
 				F33833EA27CFE3CC000810E2 /* Preview Assets.xcassets in Resources */,
 				F338340F27CFFB0D000810E2 /* PegasusTrail.usdz in Resources */,
+				F3EAA50B27DFE64800551433 /* retroTv.usdz in Resources */,
 				F33833E727CFE3CC000810E2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
