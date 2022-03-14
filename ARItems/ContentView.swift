@@ -8,47 +8,47 @@
 import SwiftUI
 import RealityKit
 import ARKit
+import FocusEntity
+
 
 struct ContentView : View {
-    
     @State private var isPlacementEnabled = false
-    @State private var selectedModel: String?
-    @State private var modelConfirmedForPlacement: String?
+    @State private var selectedModel: Model?
+    @State private var modelConfirmedForPlacement: Model?
     
-    private var models: [String] = {
+    private let models: [Model] = {
+        // dynamiccly get filesn names
         
         let filemanager = FileManager.default
         
-        guard let path = Bundle.main.resourcePath, let files = try?
-                filemanager.contentsOfDirectory(atPath: path) else {
-                    return []
-                }
+        guard let path = Bundle.main.resourcePath, let files = try? filemanager.contentsOfDirectory(atPath: path) else {return []}
         
-        var availableModels: [String] = []
-        for filename in files where filename.hasSuffix("usdz") {
-            let modelName = filename.replacingOccurrences(of: ".usdz", with: "")
-            availableModels.append(modelName)
+        var avaliableModels: [Model] = []
+        for f in files where f.hasSuffix(".usdz"){
+            let modelName = f.replacingOccurrences(of: ".usdz", with: "")
+            let model  = Model(modelName: modelName)
+            avaliableModels.append(model)
         }
         
-        return availableModels
+        return avaliableModels
     }()
     
+    
     var body: some View {
-        
-        ZStack(alignment: .bottom) {
-            ARViewContainer(modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
-            if self.isPlacementEnabled {
-                PlacementButtonView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, modelConfirmedForPlacement: self.$modelConfirmedForPlacement)
+        ZStack(alignment: .bottom){
+            ARViewContainer(modelConfirmedForPlacement: $modelConfirmedForPlacement)
+            if isPlacementEnabled {
+                PlacementButtonsView(isPlacementEnabled: $isPlacementEnabled, selectedModel: $selectedModel, modelConfirmedForPlacement: $modelConfirmedForPlacement)
             } else {
-                ModelPickerView(isPlacementEnabled: self.$isPlacementEnabled, selectedModel: self.$selectedModel, models: self.models)
+                ModelPickerView(isPlacementEnabled: $isPlacementEnabled, selectedModel: $selectedModel, models: models)
             }
         }
+        
     }
 }
 
 struct ARViewContainer: UIViewRepresentable {
-    
-    @Binding var modelConfirmedForPlacement: String?
+    @Binding var modelConfirmedForPlacement: Model?
     
     func makeUIView(context: Context) -> ARView {
         
@@ -58,29 +58,32 @@ struct ARViewContainer: UIViewRepresentable {
         config.planeDetection = [.horizontal, .vertical]
         config.environmentTexturing = .automatic
         
-        if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh) {
+        if ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh){
             config.sceneReconstruction = .mesh
         }
         
         arView.session.run(config)
         
-        return arView
+        // add the focus entity to the ARView
+        let _ = FocusEntity(on: arView, focus: .classic)
         
+        return arView
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
-        if let modelName = self.modelConfirmedForPlacement {
-            print("DEBUG: adding model to scene \(modelName)")
-            
-            let filename = modelName + ".usdz"
-            let modelEntity = try! ModelEntity.loadModel(named: filename)
-            let anchorEntity = AnchorEntity()
-            anchorEntity.addChild(modelEntity)
-            
-            uiView.scene.addAnchor(anchorEntity)
+        if let model = modelConfirmedForPlacement{
+            // add model to scene
+            if let modelEntity = model.modelEntity {
+                let anchorEntity = AnchorEntity(plane: .any)
+                anchorEntity.addChild(modelEntity.clone(recursive: true))
+                uiView.scene.addAnchor(anchorEntity)
+            }else{
+                // model not avaliable
+            }
+          
             
             DispatchQueue.main.async {
-                self.modelConfirmedForPlacement = nil
+                modelConfirmedForPlacement = nil
             }
         }
     }
@@ -88,69 +91,71 @@ struct ARViewContainer: UIViewRepresentable {
 }
 
 struct ModelPickerView: View {
-    
     @Binding var isPlacementEnabled: Bool
-    @Binding var selectedModel: String?
+    @Binding var selectedModel: Model?
+    var models: [Model]
     
-    var models: [String]
-    
-    func modelPickerViewButton() -> some View {
-        HStack(spacing: 30) {
-            ForEach(0 ..< self.models.count) {
-                index in
-                Button(action: {
-                    print("DEBUG: selected model with the name: \(self.models[index])")
-                    self.selectedModel = self.models[index]
-                    self.isPlacementEnabled = true
-                }) {
-                    Image(uiImage: UIImage(named: self.models[index])!).resizable().frame(height: 80).aspectRatio(1/1, contentMode: .fit)
-                        .background(Color.white)
-                        .cornerRadius(12)
+    var body: some View{
+        ScrollView(.horizontal, showsIndicators: false){
+            HStack(spacing:30){
+                ForEach(0 ..< models.count){ index in
+                    Button(action: {
+                        print("DEBUG: selected \(models[index])")
+                        self.isPlacementEnabled = true
+                        selectedModel = models[index]
+                    }){
+                        Image(uiImage: self.models[index].image)
+                            .resizable()
+                            .frame(height: 80)
+                            .aspectRatio(1, contentMode: .fit)
+                    }.buttonStyle(.plain)
                 }
-                .buttonStyle(PlainButtonStyle())
             }
         }
-    }
-    
-    var body: some View {
-        
-        ScrollView(.horizontal, showsIndicators: false) {
-            modelPickerViewButton()
-        }
         .padding(20)
-        .background(Color.black).opacity(0.5)
+        .background(Color.black.opacity(0.5))
     }
 }
 
-struct PlacementButtonView: View {
-    
+struct PlacementButtonsView:View{
     @Binding var isPlacementEnabled: Bool
-    @Binding var selectedModel: String?
-    @Binding var modelConfirmedForPlacement: String?
-    
-    var body: some View {
-        HStack {
-            // Cancel button
+    @Binding var selectedModel: Model?
+    @Binding var modelConfirmedForPlacement: Model?
+    var body: some View{
+        HStack{
+            // cancle button
             Button(action: {
-                print("DEBUG: Cancel model placement.")
+                print("DUBUG: Cancle clicked")
                 self.resetPlacementParameters()
-            }) {
-                Image(systemName: "xmark").frame(width: 60, height: 60).font(.title).background(Color.white).opacity(0.75).cornerRadius(30).padding(20)
+            }){
+                Image(systemName: "xmark")
+                    .frame(width: 60, height: 60)
+                    .font(.title)
+                    .background(Color.white.opacity(0.75))
+                    .cornerRadius(30)
+                    .padding(20)
             }
-            // Confirm Button
+            
+            // confirm
             Button(action: {
-                print("DEBUG: Confirm model placement.")
+                print("DUBUG: Confirm clicked")
                 self.modelConfirmedForPlacement = self.selectedModel
                 self.resetPlacementParameters()
-            }) {
-                Image(systemName: "checkmark").frame(width: 60, height: 60).font(.title).background(Color.white).opacity(0.75).cornerRadius(30).padding(20)
+            }){
+                Image(systemName: "checkmark")
+                    .frame(width: 60, height: 60)
+                    .font(.title)
+                    .background(Color.white.opacity(0.75))
+                    .cornerRadius(30)
+                    .padding(20)
             }
         }
+
     }
     
-    func resetPlacementParameters() {
-        self.isPlacementEnabled = false
-        self.selectedModel = nil
+    func resetPlacementParameters(){
+        isPlacementEnabled = false
+        selectedModel = nil
     }
 }
 

@@ -17,6 +17,8 @@
 		F338340027CFE3CC000810E2 /* ARItemsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33833FF27CFE3CC000810E2 /* ARItemsUITestsLaunchTests.swift */; };
 		F338340F27CFFB0D000810E2 /* PegasusTrail.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F338340D27CFFB0D000810E2 /* PegasusTrail.usdz */; };
 		F338341027CFFB0D000810E2 /* AirForce.usdz in Resources */ = {isa = PBXBuildFile; fileRef = F338340E27CFFB0D000810E2 /* AirForce.usdz */; };
+		F3EAA50627DFDF0D00551433 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3EAA50527DFDF0D00551433 /* Model.swift */; };
+		F3EAA50927DFDFAA00551433 /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = F3EAA50827DFDFAA00551433 /* FocusEntity */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,7 @@
 		F33833FF27CFE3CC000810E2 /* ARItemsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARItemsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F338340D27CFFB0D000810E2 /* PegasusTrail.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = PegasusTrail.usdz; sourceTree = "<group>"; };
 		F338340E27CFFB0D000810E2 /* AirForce.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = AirForce.usdz; sourceTree = "<group>"; };
+		F3EAA50527DFDF0D00551433 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3EAA50927DFDFAA00551433 /* FocusEntity in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +110,7 @@
 				F33833E427CFE3CB000810E2 /* Experience.rcproject */,
 				F33833E627CFE3CC000810E2 /* Assets.xcassets */,
 				F33833E827CFE3CC000810E2 /* Preview Content */,
+				F3EAA50527DFDF0D00551433 /* Model.swift */,
 			);
 			path = ARItems;
 			sourceTree = "<group>";
@@ -160,6 +165,9 @@
 			dependencies = (
 			);
 			name = ARItems;
+			packageProductDependencies = (
+				F3EAA50827DFDFAA00551433 /* FocusEntity */,
+			);
 			productName = ARItems;
 			productReference = F33833DD27CFE3CB000810E2 /* ARItems.app */;
 			productType = "com.apple.product-type.application";
@@ -232,6 +240,9 @@
 				Base,
 			);
 			mainGroup = F33833D427CFE3CB000810E2;
+			packageReferences = (
+				F3EAA50727DFDFAA00551433 /* XCRemoteSwiftPackageReference "FocusEntity" */,
+			);
 			productRefGroup = F33833DE27CFE3CB000810E2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -279,6 +290,7 @@
 				F33833E327CFE3CB000810E2 /* ContentView.swift in Sources */,
 				F33833E127CFE3CB000810E2 /* AppDelegate.swift in Sources */,
 				F33833E527CFE3CB000810E2 /* Experience.rcproject in Sources */,
+				F3EAA50627DFDF0D00551433 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +617,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F3EAA50727DFDFAA00551433 /* XCRemoteSwiftPackageReference "FocusEntity" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maxxfrazer/FocusEntity";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F3EAA50827DFDFAA00551433 /* FocusEntity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3EAA50727DFDFAA00551433 /* XCRemoteSwiftPackageReference "FocusEntity" */;
+			productName = FocusEntity;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F33833D527CFE3CB000810E2 /* Project object */;
 }
