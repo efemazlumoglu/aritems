@@ -15,9 +15,9 @@ struct ContentView : View {
     @State private var isPlacementEnabled = false
     @State private var selectedModel: Model?
     @State private var modelConfirmedForPlacement: Model?
+    @State public var showingAlert = false
     
     private let models: [Model] = {
-        // dynamiccly get filesn names
         
         let filemanager = FileManager.default
         
@@ -33,7 +33,6 @@ struct ContentView : View {
         return avaliableModels
     }()
     
-    
     var body: some View {
         ZStack(alignment: .bottom){
             ARViewContainer(modelConfirmedForPlacement: $modelConfirmedForPlacement)
@@ -41,9 +40,11 @@ struct ContentView : View {
                 PlacementButtonsView(isPlacementEnabled: $isPlacementEnabled, selectedModel: $selectedModel, modelConfirmedForPlacement: $modelConfirmedForPlacement)
             } else {
                 ModelPickerView(isPlacementEnabled: $isPlacementEnabled, selectedModel: $selectedModel, models: models)
+                    .alert("Model is not available right now please try again later.", isPresented: $showingAlert) {
+                        Button("OK", role: .cancel) { }
+                    }
             }
         }
-        
     }
 }
 
@@ -64,8 +65,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         arView.session.run(config)
         
-        // add the focus entity to the ARView
-        let _ = FocusEntity(on: arView, focus: .classic)
+        let _ = FocusEntity(on: arView, focus: .plane)
         
         return arView
     }
@@ -78,7 +78,7 @@ struct ARViewContainer: UIViewRepresentable {
                 anchorEntity.addChild(modelEntity.clone(recursive: true))
                 uiView.scene.addAnchor(anchorEntity)
             }else{
-                // model not avaliable
+                
             }
           
             
