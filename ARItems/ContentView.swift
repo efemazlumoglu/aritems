@@ -78,7 +78,7 @@ struct ARViewContainer: UIViewRepresentable {
                 anchorEntity.addChild(modelEntity.clone(recursive: true))
                 uiView.scene.addAnchor(anchorEntity)
             }else{
-                
+                // implement this else feautre maybe show some alert
             }
           
             
