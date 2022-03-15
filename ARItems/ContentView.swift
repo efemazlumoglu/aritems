@@ -112,7 +112,7 @@ struct ModelPickerView: View {
                 }
             }
         }
-        .padding(20)
+        .padding(25)
         .background(Color.black.opacity(0.5))
     }
 }
@@ -121,6 +121,7 @@ struct PlacementButtonsView:View{
     @Binding var isPlacementEnabled: Bool
     @Binding var selectedModel: Model?
     @Binding var modelConfirmedForPlacement: Model?
+    @Binding var showingAlert: Bool
     var body: some View{
         HStack{
             // cancle button
