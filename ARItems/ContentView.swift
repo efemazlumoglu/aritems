@@ -37,7 +37,7 @@ struct ContentView : View {
         ZStack(alignment: .bottom){
             ARViewContainer(modelConfirmedForPlacement: $modelConfirmedForPlacement)
             if isPlacementEnabled {
-                PlacementButtonsView(isPlacementEnabled: $isPlacementEnabled, selectedModel: $selectedModel, modelConfirmedForPlacement: $modelConfirmedForPlacement)
+                PlacementButtonsView(isPlacementEnabled: $isPlacementEnabled, selectedModel: $selectedModel, modelConfirmedForPlacement: $modelConfirmedForPlacement, showingAlert: $showingAlert)
             } else {
                 ModelPickerView(isPlacementEnabled: $isPlacementEnabled, selectedModel: $selectedModel, models: models)
                     .alert("Model is not available right now please try again later.", isPresented: $showingAlert) {
